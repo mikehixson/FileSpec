@@ -14,7 +14,6 @@ namespace FileSpec
     {
         private readonly string _recordDelimiter;
         private string _line;
-        private int _index;
 
         public int PartCount    //todo: rename
         {

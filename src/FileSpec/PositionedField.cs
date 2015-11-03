@@ -25,7 +25,7 @@ namespace FileSpec
         }
 
         // length
-        public PositionedField(int position, int length, FieldTruncate truncate = FieldTruncate.None, FieldAlign align = FieldAlign.Left)
+        public PositionedField(int position, int length, FieldTruncate truncate = FieldTruncate.None, FieldPadding align = FieldPadding.Left)
         {
             _position = position;
             _length = length;
@@ -42,7 +42,7 @@ namespace FileSpec
         }
 
         // min length
-        public PositionedField(int position, int length, FieldAlign align = FieldAlign.Left)
+        public PositionedField(int position, int length, FieldPadding align = FieldPadding.Left)
         {
             _position = position;
             _length = length;

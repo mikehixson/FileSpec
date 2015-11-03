@@ -27,7 +27,7 @@ namespace FileSpec
 
         //todo: how about allowing min & max length to be differnt
 
-        public FixedLengthField(int index, int length, FieldTruncate truncate = FieldTruncate.None, FieldAlign align = FieldAlign.Left)
+        public FixedLengthField(int index, int length, FieldTruncate truncate = FieldTruncate.None, FieldPadding align = FieldPadding.Left)
         {
             _index = index;
             _length = length;

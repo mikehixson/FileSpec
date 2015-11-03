@@ -5,7 +5,14 @@ VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileSpec", "FileSpec\FileSpec.csproj", "{09B64A29-5BEC-4165-8AAF-E72918889762}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileSpec.Test.Unit", "FileSpec.Test.Unit\FileSpec.Test.Unit.csproj", "{C300A4B6-F317-4EB7-BB94-87876EFDE005}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileSpec.Test", "FileSpec.Test.Unit\FileSpec.Test.csproj", "{C300A4B6-F317-4EB7-BB94-87876EFDE005}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{9C53F2E3-BE47-418B-AD3A-3C8E0BBA1B50}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

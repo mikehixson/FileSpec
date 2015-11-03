@@ -13,7 +13,7 @@ namespace FileSpec
         Right
     }
 
-    public enum FieldAlign
+    public enum FieldPadding
     {
         Left,
         Right

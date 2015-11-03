@@ -9,7 +9,6 @@ namespace FileSpec
 {
     public class DelimitedReader : IRecordReader
     {
-        private readonly TextReader _reader;
         private readonly string _fieldDelimiter;
         private readonly string _recordDelimiter;
         private string[] _parts;
