@@ -1,0 +1,34 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".tt.cs" #>
+using System;
+
+namespace FileSpec.Converter
+{
+	public partial class NumberConverter
+	{
+<# foreach (var type in GetTypes())
+{ 
+	var name = type[0];
+	var alias = type[1];
+#>
+<#@ include file="NumberTemplate.t4"#>
+		
+<# } #>
+	}
+}
+<#+
+
+public IEnumerable<string[]> GetTypes()
+{
+	yield return new string[] { "SByte", "sbyte" };
+	yield return new string[] { "Int16", "short" };	
+	yield return new string[] { "Int32", "int" };	
+	yield return new string[] { "Int64", "long" };
+	yield return new string[] { "Decimal", "decimal" };
+	yield return new string[] { "Single", "float" };
+	yield return new string[] { "Double", "double" };	
+}
+
+#>

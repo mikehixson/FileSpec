@@ -1,0 +1,37 @@
+﻿		#region <#= alias #>
+
+		public string GetString(<#= alias #> value)
+		{
+			string result;
+
+			value = (<#= alias #>)(value * _scale);
+			result = value.ToString(_format);
+
+			return result;
+		}
+
+		<#= alias #> IConverter<<#= alias #>>.GetValue(string text)
+		{
+			<#= alias #> result = 0;
+
+			if (<#= name #>.TryParse(text, out result))
+				result = (<#= alias #>)(result / _scale);
+
+			return result;
+		}
+
+		#endregion
+
+		#region <#= alias #>?
+
+		public string GetString(<#= alias #>? value)
+		{
+            return NullableHelper.GetString(value, this);
+		}
+
+		<#= alias #>? IConverter<<#= alias #>?>.GetValue(string text)
+		{
+            return NullableHelper.GetValue<<#= alias #>>(text, this);
+		}
+
+		#endregion

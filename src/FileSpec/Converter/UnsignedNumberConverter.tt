@@ -1,0 +1,31 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".tt.cs" #>
+using System;
+
+namespace FileSpec.Converter
+{
+	public partial class UnsignedNumberConverter
+	{
+<# foreach (var type in GetTypes())
+{ 
+	var name = type[0];
+	var alias = type[1];
+#>
+<#@ include file="NumberTemplate.t4"#>
+		
+<# } #>
+	}
+}
+<#+
+
+public IEnumerable<string[]> GetTypes()
+{
+	yield return new string[] { "Byte", "byte" };	
+	yield return new string[] { "UInt16", "ushort" };
+	yield return new string[] { "UInt32", "uint" };
+	yield return new string[] { "UInt64", "ulong" };
+}
+
+#>
