@@ -59,6 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converter\GuidConverter.cs" />
     <Compile Include="Converter\NullableHelper.cs" />
     <Compile Include="Converter\NumberConverter.cs" />
     <Compile Include="Converter\NumberConverter.tt.cs">

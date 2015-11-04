@@ -6,23 +6,31 @@ using System.Threading.Tasks;
 
 namespace FileSpec.Converter
 {
-    // todo: support for other than Y/N
     public class BooleanConverter : IConverter<bool>, IConverter<bool?>
     {
+        private readonly string _trueValue;
+        private readonly string _falseValue;
+
+        public BooleanConverter(string trueValue = "True", string falseValue = "False")
+        {
+            _trueValue = trueValue;
+            _falseValue = falseValue;
+        }
+
         #region bool
 
         public string GetString(bool value)
         {
-            return value ? "Y" : "N";
+            return value ? _trueValue : _falseValue;
         }
 
         public bool GetValue(string text)
         {
             bool result;
 
-            if (String.Equals(text, "Y", StringComparison.OrdinalIgnoreCase))
+            if (String.Equals(text, _trueValue, StringComparison.OrdinalIgnoreCase))
                 result = true;
-            else if (String.Equals(text, "N", StringComparison.OrdinalIgnoreCase))
+            else if (String.Equals(text, _falseValue, StringComparison.OrdinalIgnoreCase))
                 result = false;
             else
                 throw new ApplicationException("Unexpected value for boolean");

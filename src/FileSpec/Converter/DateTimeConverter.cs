@@ -8,7 +8,7 @@ namespace FileSpec.Converter
 {
     public class DateTimeConverter : IConverter<DateTime>, IConverter<DateTime?>
     {
-        private string _format;
+        private readonly string _format;
 
         public DateTimeConverter(string format = null)
         {

@@ -67,6 +67,8 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Converter\BooleanConverterTests.cs" />
+    <Compile Include="Converter\GuidConverterTests.cs" />
     <Compile Include="DummyData.cs" />
     <Compile Include="Behavior\MinimumLengthBehaviorTests.cs" />
     <Compile Include="PropertyTests.cs" />

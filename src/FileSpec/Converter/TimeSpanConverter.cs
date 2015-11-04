@@ -8,7 +8,7 @@ namespace FileSpec.Converter
 {
     public class TimeSpanConverter : IConverter<TimeSpan>, IConverter<TimeSpan?>
     {
-        private string _format;
+        private readonly string _format;
 
         public TimeSpanConverter(string format = null)
         {
