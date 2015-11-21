@@ -49,5 +49,20 @@ namespace FileSpec
 
             return null;
         }
+
+        public string Read(List<string> values)
+        {
+            // assume that the value for this field can be at any position
+
+            for (int i = 0; i < values.Count; i++)  //todo: use foreach?
+            {
+                string value = values[i];
+
+                if (value.StartsWith(_name))
+                    return value.Substring(value.IndexOf('=') + 1);
+            }
+
+            return null;
+        }
     }
 }

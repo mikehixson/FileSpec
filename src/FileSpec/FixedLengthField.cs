@@ -61,5 +61,15 @@ namespace FileSpec
 
             return value;
         }
+
+        public string Read(List<string> values)
+        {
+            string value = values[0].Substring(_index, _length);
+
+            if (_minimumLength != null)
+                value = _minimumLength.Read(value);
+
+            return value;
+        }
     }
 }

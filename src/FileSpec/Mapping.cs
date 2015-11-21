@@ -24,5 +24,12 @@ namespace FileSpec
 
             Property.Set(record, value);
         }
+        
+        public void Read(object record, List<string> values)
+        {
+            string value = Field.Read(values);
+
+            Property.Set(record, value);
+        }
     }
 }

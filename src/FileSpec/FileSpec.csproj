@@ -68,8 +68,13 @@
       <DependentUpon>NumberConverter.tt</DependentUpon>
     </Compile>
     <Compile Include="Converter\UnsignedNumberConverter.cs" />
+    <Compile Include="CsvParser.cs" />
+    <Compile Include="DelimitedParser.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="FixedLengthField.cs" />
+    <Compile Include="IParser.cs" />
+    <Compile Include="Reader.cs" />
+    <Compile Include="SimpleParser.cs" />
     <Compile Include="SimpleReader.cs" />
     <Compile Include="SimpleWriter.cs" />
     <Compile Include="IMapping.cs" />

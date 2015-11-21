@@ -14,8 +14,9 @@ namespace FileSpec
     {
         private readonly string _recordDelimiter;
         private string _line;
+        private StringBuilder _buffer = new StringBuilder();
 
-        public int PartCount    //todo: rename
+        public int PartCount    //todo: rename, or get rid of it
         {
             get { return 1; }
         }
@@ -25,16 +26,21 @@ namespace FileSpec
             _recordDelimiter = recordDelimiter;
         }
 
-        public bool ReadRecord(TextReader reader)
+        //public bool ReadRecord(TextReader reader)
+        //{
+        //    _line = reader.ReadLine();  //todo: implement record delimiter
+
+        //    if (_line == null)
+        //        return false;
+
+        //    return true;
+        //}
+
+        public bool Read(Reader reader)
         {
-            _line = reader.ReadLine();  //todo: implement record delimiter
-
-            if (_line == null)
-                return false;
-            
-            return true;
+            return false;   // todo:
         }
-
+        
         public string[] Current()
         {
             return new string[] { _line };

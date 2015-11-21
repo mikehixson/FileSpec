@@ -51,7 +51,7 @@ namespace FileSpec
             package.Read(record, reader);
         }
 
-        public T Read<T>(TextReader reader) where T : new()
+        public T Read<T>(TextReader reader) where T : new() //todo: get rid of it
         {
             Package package = _repo.Get<T>();
 
@@ -61,6 +61,10 @@ namespace FileSpec
             
             return record;
         }
+
+
+
+
 
         // how do we know what type we are reading?
         // how can we accomplish this? need to be able to look at the reader and determine T
@@ -113,7 +117,7 @@ namespace FileSpec
 
             while (true)
             {
-                int peek = reader.Peek();       // we need better peek capability in the underlying reader
+                int peek = reader.Peek();       // we need better peek capability in the underlying reader.
 
                 if (peek == -1)
                     yield break;
@@ -131,6 +135,39 @@ namespace FileSpec
                     yield return record;
                 else
                     yield break;
+            }
+        }
+
+
+        //public T Read<T>(Reader reader) where T : new()
+        //{
+        //    Package package = _repo.Get<T>();
+
+        //    T record = new T();
+
+        //    package.Read(record, reader);
+
+        //    return record;
+        //}
+
+        public IEnumerable<T> NewStuff<T>(IParser parser)
+        {
+            // parse the next record
+            while (parser.Parse())
+            {
+                // find the package for this parsed record
+                //KeyValuePair<Type, Package> pair = _repo.Find(parser.Current[0]);  // todo: find() should take the whole array
+                //var package = pair.Value;
+
+                var package = _repo.Get<T>();
+
+                // create empty record
+                T record = (T)package.Create(); 
+
+                // pass record and parsed to package.read()
+                package.Read(record, parser.Current);
+
+                yield return record;    //todo: make our own enumertor for efficiency?
             }
         }
     }

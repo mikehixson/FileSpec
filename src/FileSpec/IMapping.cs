@@ -13,5 +13,6 @@ namespace FileSpec
 
         void Write(object record, IRecordWriter writer);
         void Read(object record, IRecordReader reader);
+        void Read(object record, List<string> values);
     }
 }

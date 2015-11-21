@@ -69,9 +69,12 @@
   <ItemGroup>
     <Compile Include="Converter\BooleanConverterTests.cs" />
     <Compile Include="Converter\GuidConverterTests.cs" />
+    <Compile Include="DelimitedParserTests.cs" />
     <Compile Include="DummyData.cs" />
     <Compile Include="Behavior\MinimumLengthBehaviorTests.cs" />
     <Compile Include="PropertyTests.cs" />
+    <Compile Include="SimpleParserTests.cs" />
+    <Compile Include="CsvParserTests.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

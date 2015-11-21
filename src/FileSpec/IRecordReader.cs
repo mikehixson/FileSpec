@@ -12,7 +12,6 @@ namespace FileSpec
         int PartCount { get; }   //todo: rename
 
         string[] Current(); //todo: rename
-        bool ReadRecord(TextReader reader);
 
         string Fetch(int delimitedContext);
         string Fetch(int delimitedContext, int index);
