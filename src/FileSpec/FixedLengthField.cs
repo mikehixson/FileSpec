@@ -52,16 +52,6 @@ namespace FileSpec
             writer.Write(value, 0, _index);
         }
 
-        public string Read(IRecordReader reader)
-        {
-            string value = reader.Fetch(0, _index, _length);
-
-            if (_minimumLength != null)
-                value = _minimumLength.Read(value);
-
-            return value;
-        }
-
         public string Read(List<string> values)
         {
             string value = values[0].Substring(_index, _length);

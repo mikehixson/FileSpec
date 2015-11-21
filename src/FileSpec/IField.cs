@@ -9,7 +9,6 @@ namespace FileSpec
     public interface IField
     {
         void Write(IRecordWriter writer, string value);
-        string Read(IRecordReader reader);
         string Read(List<string> values);
     }
 }

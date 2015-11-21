@@ -35,21 +35,6 @@ namespace FileSpec
             writer.Write(value, _position);
         }
 
-        public string Read(IRecordReader reader)
-        {
-            // assume that the value for this field can be at any position
-
-            for (int i = 0; i < reader.PartCount; i++)       // maybe we expose parts as IEnumerable?. We need to know i and the value
-            {
-                string value = reader.Fetch(i);
-
-                if (value.StartsWith(_name))
-                    return value.Substring(value.IndexOf('=') + 1);
-            }
-
-            return null;
-        }
-
         public string Read(List<string> values)
         {
             // assume that the value for this field can be at any position

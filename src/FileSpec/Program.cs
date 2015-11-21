@@ -45,22 +45,22 @@ namespace FileSpec
             Package package1 = new Package
             {
                 Writer = new DelimitedWriter(fieldDelimiter: "*"),
-                Reader = new DelimitedReader(fieldDelimiter: "*"),
+                //Reader = new DelimitedReader(fieldDelimiter: "*"),
                 Predicate = s => s == "A",
                 Create = () => new Test(),
-                Descriptions = new List<IMapping>
+                Mappings = new List<IMapping>
                 {
-                    new Mapping()
+                    new PropertyMapping()
                     {
                         Property = new Property(GetProperty<Test, string>(r => r.RecordType), new StringConverter()),
                         Field = new PositionedField(0)
                     },
-                    new Mapping()
+                    new PropertyMapping()
                     {
                         Property = new Property(GetProperty<Test, int>(r => r.MyInteger1), new NumberConverter()),
                         Field = new PositionedField(1)
                     },
-                    new Mapping()
+                    new PropertyMapping()
                     {
                         Property = new Property(GetProperty<Test, DateTime>(r => r.MyDateTime), new DateTimeConverter()),
                         Field = new PositionedField(3)
@@ -73,22 +73,22 @@ namespace FileSpec
             Package package2 = new Package
             {
                 Writer = new SimpleWriter(null),
-                Reader = new SimpleReader(null),
+                //Reader = new SimpleReader(null),
                 Predicate = s => s == "B",
                 Create = () => new Test2(),
-                Descriptions = new List<IMapping>
+                Mappings = new List<IMapping>
                 {
-                    new Mapping()
+                    new PropertyMapping()
                     {
                         Property = new Property(GetProperty<Test2, string>(r => r.RecordType), new StringConverter()),
                         Field = new FixedLengthField(0, 3)
                     },
-                    new Mapping()
+                    new PropertyMapping()
                     {
                         Property = new Property(GetProperty<Test2, int>(r => r.MyInteger1), new NumberConverter()),
                         Field = new FixedLengthField(3, 10)
                     },
-                    new Mapping()
+                    new PropertyMapping()
                     {
                         Property = new Property(GetProperty<Test2, DateTime>(r => r.MyDateTime), new DateTimeConverter()),
                         Field = new FixedLengthField(15, 25)
@@ -102,22 +102,22 @@ namespace FileSpec
             Package package3 = new Package
             {
                 Writer = new DelimitedWriter(null),
-                Reader = new DelimitedReader(null),
+                //Reader = new DelimitedReader(null),
                 Predicate = s => s == "C",
                 Create = () => new Test3(),
-                Descriptions = new List<IMapping>
+                Mappings = new List<IMapping>
                 {
-                    new Mapping()
+                    new PropertyMapping()
                     {
                         Property = new Property(GetProperty<Test3, string>(r => r.RecordType), new StringConverter()),
                         Field = new PositionedField(0)    //  ineresting how this is compatible with NamedFields. Maybe there should be an interface to indicate this.
                     },
-                    new Mapping()
+                    new PropertyMapping()
                     {
                         Property = new Property(GetProperty<Test3, int>(r => r.MyInteger1), new NumberConverter()),
                         Field = new NamedField(1, "Integer1")
                     },
-                    new Mapping()
+                    new PropertyMapping()
                     {
                         Property = new Property(GetProperty<Test3, DateTime>(r => r.MyDateTime), new DateTimeConverter()),
                         Field = new NamedField(2, "Date")
@@ -131,15 +131,15 @@ namespace FileSpec
             Package package4 = new Package
             {
                 Writer = new SimpleWriter(null),
-                Reader = new SimpleReader(null),
-                Descriptions = new List<IMapping>
+                //Reader = new SimpleReader(null),
+                Mappings = new List<IMapping>
                 {
-                    new Mapping()
+                    new PropertyMapping()
                     {
                         Property = new Property(GetProperty<Complex, int>(r => r.X), new NumberConverter(format: "000")),
                         Field = new FixedLengthField(3, 10)
                     },
-                    new Mapping()
+                    new PropertyMapping()
                     {
                         Property = new Property(GetProperty<Complex, int>(r => r.Y), new NumberConverter(format: "000")),
                         Field = new FixedLengthField(15, 25)
@@ -180,22 +180,22 @@ namespace FileSpec
 
         public static void RunRaw<T>(Master master, T test1) where T : new()
         {
-            StringBuilder sb = new StringBuilder();
-            TextWriter tw = new StringWriter(sb);
+            MemoryStream stream = new MemoryStream();
+            TextWriter tw = new StreamWriter(stream);
 
             master.Write(test1, tw);
+            
+            string result = Encoding.UTF8.GetString(stream.GetBuffer());
 
-            string result = sb.ToString();
-
-
-            TextReader tr = new StringReader(result);
+            stream.Position = 0;
+            DelimitedParser parser = new DelimitedParser(new Reader(stream), ',');
 
             T test2 = new T();
-            master.Read(test2, tr);
+            master.Read(test2, parser);
 
-            tr = new StringReader(result);
+            stream.Position = 0;
 
-            T test3 = master.Read<T>(tr);
+            T test3 = master.Read<T>(parser);
         }
 
         public static void RunRawNamed<T>(Master master) where T : new()
@@ -203,9 +203,10 @@ namespace FileSpec
             string result = "C,Date=04/11/1976,Integer2=4567,Integer1=1234\r\n";
 
             TextReader tr = new StringReader(result);
+            IParser parser = null;
 
             T test2 = new T();
-            master.Read(test2, tr);
+            master.Read(test2, parser);
         }
 
         // Every item is exactly the same T
@@ -219,7 +220,8 @@ namespace FileSpec
             string result = sb.ToString();
 
             TextReader tr = new StringReader(result);
-            IEnumerable<T> test3 = master.ReadMany<T>(tr).ToArray();
+            IParser parser = null;
+            IEnumerable<T> test3 = master.ReadMany<T>(parser).ToArray();
         }
 
         // Every item derrives from T
@@ -233,7 +235,8 @@ namespace FileSpec
             string result = sb.ToString();
 
             TextReader tr = new StringReader(result);
-            IEnumerable<T> test3 = master.ReadMany<T>(tr).ToArray();
+            IParser parser = null;
+            IEnumerable<T> test3 = master.ReadMany<T>(parser).ToArray();
         }
         
         
@@ -249,7 +252,8 @@ namespace FileSpec
 
 
             TextReader tr = new StringReader(result);
-            IEnumerable test3 = master.ReadMany(tr).OfType<object>().ToArray();
+            IParser parser = null;
+            IEnumerable test3 = master.ReadMany(parser).OfType<object>().ToArray();
 
             
         }

@@ -64,17 +64,7 @@ namespace FileSpec
 
             writer.Write(value, _position, 0);
         }
-
-        public string Read(IRecordReader reader)
-        {
-            string value = reader.Fetch(_position);
-
-            if (_minimumLength != null)
-                value = _minimumLength.Read(value);
-
-            return value;
-        }
-
+        
         public string Read(List<string> values)
         {
             string value = values[_position];
